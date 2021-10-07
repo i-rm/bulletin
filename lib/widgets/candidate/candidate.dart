@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Candidate extends StatelessWidget {
-  const Candidate({
-    Key? key,
-  }) : super(key: key);
+  const Candidate({Key? key, required this.logo, required this.text})
+      : super(key: key);
+
+  final String logo;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,8 @@ class Candidate extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.center,
                     child: Image.asset(
-                      "assets/images/kprf.png",
+                      // "assets/images/kprf.png",
+                      logo,
                       height: MediaQuery.of(context).size.width * 0.065,
                     ),
                   ),
@@ -43,7 +46,8 @@ class Candidate extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.75,
                   child: Text(
-                    'Политическая партия "КОММУНИСТИЧЕСКАЯ ПАРТИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ"',
+                    // 'Политическая партия "КОММУНИСТИЧЕСКАЯ ПАРТИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ"',
+                    text,
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.02,
                         fontWeight: FontWeight.bold),

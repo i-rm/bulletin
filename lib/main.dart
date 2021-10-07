@@ -84,7 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Candidate(),
+            Candidate(
+              logo: "assets/images/kprf.png",
+              text:
+                  'Политическая партия "КОММУНИСТИЧЕСКАЯ ПАРТИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ"',
+            ),
           ],
         ),
       ),
