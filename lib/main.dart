@@ -1,4 +1,6 @@
+import 'package:bulletin/helpers/candidates.dart';
 import 'package:bulletin/widgets/candidate/candidate.dart';
+import 'package:bulletin/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,58 +40,26 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              margin: EdgeInsets.all(0),
-              shape: Border(
-                top: BorderSide(width: 1.0, color: Colors.black),
-                left: BorderSide(width: 1.0, color: Colors.black),
-                right: BorderSide(width: 1.0, color: Colors.black),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "ИЗБИРАТЕЛЬНЫЙ БЮЛЛЕТЕНЬ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 10),
-                        ),
-                      ],
+        child: Container(
+          margin: const EdgeInsets.all(3),
+          height: MediaQuery.of(context).size.height - 30,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  const Header(),
+                  for (var c in candidates)
+                    Candidate(
+                      logo: c.logo,
+                      text: c.text,
+                      n: c.n,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "для голосования по федеральному избирательному округу",
-                          style: TextStyle(fontSize: 5),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "на выборах депутатов Государственной Думы Федерального Собрания Российской Федерации восьмого созыва",
-                          style: TextStyle(fontSize: 5),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Candidate(
-              logo: "assets/images/kprf.png",
-              text:
-                  'Политическая партия "КОММУНИСТИЧЕСКАЯ ПАРТИЯ РОССИЙСКОЙ ФЕДЕРАЦИИ"',
-            ),
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
