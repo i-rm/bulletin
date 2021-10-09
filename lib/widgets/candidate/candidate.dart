@@ -99,7 +99,7 @@ class _CandidateState extends State<Candidate>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.735,
+                          width: MediaQuery.of(context).size.width * 0.715,
                           child: Text(
                             widget.text,
                             style: TextStyle(
@@ -112,8 +112,8 @@ class _CandidateState extends State<Candidate>
                     ),
                     Container(
                       child: Container(
-                          width: MediaQuery.of(context).size.width * 0.05,
-                          height: MediaQuery.of(context).size.width * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.07,
+                          height: MediaQuery.of(context).size.width * 0.07,
                           decoration: BoxDecoration(border: Border.all()),
                           alignment: Alignment.center,
                           child: AnimatedCheck(
