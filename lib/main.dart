@@ -1,8 +1,10 @@
 import 'package:bulletin/helpers/candidates.dart';
+import 'package:bulletin/provider/provider.dart';
 import 'package:bulletin/widgets/candidate/candidate.dart';
 import 'package:bulletin/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -10,7 +12,10 @@ void main() {
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => CheckProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -38,30 +43,34 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(3),
-          height: MediaQuery.of(context).size.height - 30,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  const Header(),
-                  for (var c in candidates)
-                    Candidate(
-                      logo: c.logo,
-                      text: c.text,
-                      n: c.n,
-                    ),
+    return Consumer<CheckProvider>(
+      builder: (context, checkProvider, child) {
+        return Scaffold(
+          body: Center(
+            child: Container(
+              margin: const EdgeInsets.all(3),
+              height: MediaQuery.of(context).size.height - 30,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ListView(
+                    shrinkWrap: true,
+                    children: [
+                      const Header(),
+                      for (var c in candidates)
+                        Candidate(
+                          logo: c.logo,
+                          text: c.text,
+                          n: c.n,
+                        ),
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
