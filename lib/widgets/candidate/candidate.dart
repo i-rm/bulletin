@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
+
 import 'package:bulletin/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_check/animated_check.dart';
+
 import 'package:provider/provider.dart';
 
 class Candidate extends StatefulWidget {
@@ -27,6 +29,7 @@ class _CandidateState extends State<Candidate>
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 100));
 
@@ -89,7 +92,7 @@ class _CandidateState extends State<Candidate>
             margin: const EdgeInsets.all(0),
             shape: getBorder(widget.n),
             child: Padding(
-              padding: const EdgeInsets.all(7.0),
+              padding: const EdgeInsets.all(5.0),
               child: Container(
                 child: Row(
                   children: [

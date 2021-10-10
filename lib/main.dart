@@ -1,21 +1,31 @@
 import 'package:bulletin/helpers/candidates.dart';
+import 'package:bulletin/provider/ad_state.dart';
 import 'package:bulletin/provider/provider.dart';
 import 'package:bulletin/widgets/candidate/candidate.dart';
 import 'package:bulletin/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  final initFuture = MobileAds.instance.initialize();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => CheckProvider(),
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CheckProvider()),
+        Provider(create: (context) => AdState(initFuture)),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -41,6 +51,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late BannerAd banner;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final adState = Provider.of<AdState>(context, listen: false);
+    adState.initialization.then((status) {
+      setState(() {
+        print(
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        banner = BannerAd(
+          adUnitId: adState.bannerAdUnitId,
+          size: AdSize.banner,
+          request: const AdRequest(),
+          listener: adState.adListener,
+        )..load();
+        _isAdLoaded = true;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CheckProvider>(
@@ -64,7 +97,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           n: c.n,
                         ),
                     ],
-                  )
+                  ),
+                  if (!_isAdLoaded)
+                    SizedBox(
+                      height: 50,
+                    )
+                  else
+                    Container(
+                      height: 50,
+                      child: AdWidget(
+                        ad: banner,
+                      ),
+                    )
                 ],
               ),
             ),
