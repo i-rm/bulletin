@@ -61,8 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
     final adState = Provider.of<AdState>(context, listen: false);
     adState.initialization.then((status) {
       setState(() {
-        print(
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         banner = BannerAd(
           adUnitId: adState.bannerAdUnitId,
           size: AdSize.banner,
@@ -81,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return Scaffold(
           body: Center(
             child: Container(
-              margin: const EdgeInsets.all(3),
-              height: MediaQuery.of(context).size.height - 30,
+              margin: const EdgeInsets.all(2),
+              height: MediaQuery.of(context).size.height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -99,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   if (!_isAdLoaded)
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     )
                   else

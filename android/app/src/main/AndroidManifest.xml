@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bulletin">
+    package="com.i_rm.bulletin">
    <application
         android:label="Бюллетень"
         android:icon="@mipmap/ic_launcher">
