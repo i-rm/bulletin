@@ -9,7 +9,7 @@ class CheckProvider extends ChangeNotifier {
   Future<bool> setChecked(int c) async {
     _checkedNum = c;
     notifyListeners();
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     return true;
   }
 

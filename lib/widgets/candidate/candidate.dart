@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bulletin/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_check/animated_check.dart';
@@ -23,6 +22,7 @@ class _CandidateState extends State<Candidate>
   late AnimationController _animationController;
 
   late Animation<double> _animation;
+  late final AudioCache _audioCache;
 
   @override
   void initState() {
@@ -33,10 +33,15 @@ class _CandidateState extends State<Candidate>
     _animation = new Tween<double>(begin: 0, end: 1).animate(
         new CurvedAnimation(
             parent: _animationController, curve: Curves.easeInOutCirc));
+
+    _audioCache = AudioCache(
+      prefix: 'assets/audio/',
+      fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP),
+    );
   }
 
   Border getBorder(int n) {
-    if (n == 15) {
+    if (n == 14) {
       return const Border(
         top: BorderSide(width: 1.0, color: Colors.black),
         left: BorderSide(width: 1.0, color: Colors.black),
@@ -52,7 +57,7 @@ class _CandidateState extends State<Candidate>
   }
 
   _rangeChecked(int n, CheckProvider checkProvider) async {
-    print("Here");
+    _audioCache.play('second.mp3');
     if (n < 5) {
       for (var i = n; i <= 5; i++) {
         await checkProvider.setCheckedWithTimer(i);
@@ -75,6 +80,7 @@ class _CandidateState extends State<Candidate>
         return GestureDetector(
           onTap: () {
             int _n = this.widget.n;
+            _audioCache.play('first.mp3');
             checkProvider
                 .setChecked(_n)
                 .then((value) => _rangeChecked(_n, checkProvider));
@@ -83,7 +89,7 @@ class _CandidateState extends State<Candidate>
             margin: const EdgeInsets.all(0),
             shape: getBorder(widget.n),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(7.0),
               child: Container(
                 child: Row(
                   children: [
@@ -116,8 +122,9 @@ class _CandidateState extends State<Candidate>
                           child: Text(
                             widget.text,
                             style: TextStyle(
+                                fontFamily: "Chicken",
                                 fontSize:
-                                    MediaQuery.of(context).size.width * 0.02,
+                                    MediaQuery.of(context).size.width * 0.03,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),

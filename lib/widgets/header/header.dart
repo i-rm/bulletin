@@ -15,9 +15,9 @@ class Header extends StatelessWidget {
         right: BorderSide(width: 1.0, color: Colors.black),
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height / 16,
+        height: MediaQuery.of(context).size.height / 14,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Center(
             child: Column(
               children: [
@@ -26,8 +26,10 @@ class Header extends StatelessWidget {
                   children: [
                     const Text(
                       "ИЗБИРАТЕЛЬНЫЙ БЮЛЛЕТЕНЬ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                      style: TextStyle(
+                          fontFamily: "Chicken",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
                     ),
                   ],
                 ),
@@ -36,7 +38,7 @@ class Header extends StatelessWidget {
                   children: [
                     const Text(
                       "для голосования по федеральному избирательному округу",
-                      style: TextStyle(fontSize: 5),
+                      style: TextStyle(fontFamily: "Chicken", fontSize: 7),
                     )
                   ],
                 ),
@@ -45,7 +47,7 @@ class Header extends StatelessWidget {
                   children: [
                     const Text(
                       "на выборах депутатов Государственной Думы Федерального Собрания Российской Федерации восьмого созыва",
-                      style: TextStyle(fontSize: 5),
+                      style: TextStyle(fontFamily: "Chicken", fontSize: 7),
                     )
                   ],
                 ),
