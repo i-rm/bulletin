@@ -51,6 +51,18 @@ class _CandidateState extends State<Candidate>
     );
   }
 
+  _rangeChecked(int n, CheckProvider checkProvider) async {
+    print("Here");
+    if (n < 5) {
+      for (var i = n; i <= 5; i++) {
+        await checkProvider.setCheckedWithTimer(i);
+      }
+    }
+    for (var i = n; i >= 5; i--) {
+      await checkProvider.setCheckedWithTimer(i);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CheckProvider>(
@@ -62,9 +74,10 @@ class _CandidateState extends State<Candidate>
         }
         return GestureDetector(
           onTap: () {
-            checkProvider.setChecked(this.widget.n);
-
-            checkProvider.setFifth();
+            int _n = this.widget.n;
+            checkProvider
+                .setChecked(_n)
+                .then((value) => _rangeChecked(_n, checkProvider));
           },
           child: Card(
             margin: const EdgeInsets.all(0),
